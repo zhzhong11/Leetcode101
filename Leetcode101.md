@@ -42,3 +42,34 @@ int candy(vector<int>& ratings) {
     return res;
 }
 ```
+
+
+
+## 435、无重叠区间
+
+在选择要保留区间时，区间的结尾十分重要：选择的区间结尾越小，余留给其它区间的空间
+就越大，就越能保留更多的区间。因此，采取的贪心策略为，优先保留结尾小且不相交的区
+间。
+
+```c++
+static bool cmp(const vector<int> &a, const vector<int> &b) {
+    //const引用比值传递效率高
+    return a[1] < b[1];
+}
+
+int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+    if(intervals.empty()) return 0;
+    sort(intervals.begin(), intervals.end(), cmp);
+    int res = 0;
+    vector<int> tmp = intervals[0];
+    for(int i = 1; i < intervals.size(); i ++ ) {
+        if(tmp[1] > intervals[i][0]) {
+            res ++;
+            continue;
+        }
+        else tmp = intervals[i];
+    }
+    return res;
+}
+```
+
