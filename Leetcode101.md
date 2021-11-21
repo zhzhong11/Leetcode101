@@ -73,3 +73,20 @@ int eraseOverlapIntervals(vector<vector<int>>& intervals) {
 }
 ```
 
+## 605、种花问题
+
+在不打破规则的情况下尽可能地多种花，注意边界情况的处理。
+
+```c++
+bool canPlaceFlowers(vector<int>& flowerbed, int n) {
+    int len = flowerbed.size(), num = 0, i = 0;
+    while(i < len) {
+        if(flowerbed[i] == 1) i += 2;
+        else if(i == len - 1 || flowerbed[i+1] == 0) num ++, i += 2;
+        else i += 3;
+    }
+
+    return n <= num;
+}
+```
+
