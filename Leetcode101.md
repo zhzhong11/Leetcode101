@@ -90,3 +90,27 @@ bool canPlaceFlowers(vector<int>& flowerbed, int n) {
 }
 ```
 
+## 452、用最少数量的箭引爆气球
+
+```c++
+static bool cmp(const vector<int> &a, const vector<int> &b) {
+	return a[1] < b[1];
+}
+
+int findMinArrowShots(vector<vector<int>>& points) {
+    if(points.size() == 1) return 1;
+    sort(points.begin(), points.end(), cmp);
+    int n = 1, tmp = points[0][1];
+    for(int i = 0; i < points.size() - 1; i ++ ) {
+        if(points[i+1][0] <= tmp) {
+            continue;
+        }
+        else {
+            n ++;
+            tmp = points[i+1][1];
+        }
+    }
+    return n;
+}
+```
+
