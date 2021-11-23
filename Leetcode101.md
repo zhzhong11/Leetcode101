@@ -116,3 +116,29 @@ int findMinArrowShots(vector<vector<int>>& points) {
 }
 ```
 
+## 763、划分字母区间
+
+在遍历的过程中相当于是要找每一个字母的边界，**如果找到之前遍历过的所有字母的最远边界，说明这个边界就是分割点了**。此时前面出现过所有字母，最远也就到这个边界了。
+
+可以分为如下两步：
+
+- 统计每一个字符最后出现的位置
+- 从头遍历字符，并更新字符的最远出现下标，如果找到字符最远出现位置下标和当前下标相等了，则找到了分割点
+
+```C++
+vector<int> partitionLabels(string s) {
+    map<char, int> hash;
+    vector<int> res;
+    for(int i = 0; i < s.size(); i ++ ) hash[s[i]] = i;
+    //for(auto i : hash) cout << i.first << i.second << endl;
+    int start = 0, end = 0;
+    for(int i = 0; i < s.size(); i ++ ) {
+        end = max(end, hash[s[i]]);
+        if(i == end) {
+            res.push_back(end - start + 1);
+            start = end + 1;
+        }
+    }
+    return res;
+```
+
