@@ -142,3 +142,18 @@ vector<int> partitionLabels(string s) {
     return res;
 ```
 
+## 122、买卖股票的最佳时机II
+
+买卖股票系列用动态规划做，这题简单可以贪心。
+
+```C++
+int maxProfit(vector<int>& prices) {
+    if(prices.empty()) return 0;
+    int res = 0;
+    for(int i = 0; i < prices.size() - 1; i ++) {
+        res += max(prices[i+1] - prices[i], 0);
+    }
+    return res; 
+}
+```
+
