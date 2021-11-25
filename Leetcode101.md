@@ -157,3 +157,25 @@ int maxProfit(vector<int>& prices) {
 }
 ```
 
+## 406、根据身高重建队列
+
+先按身高降序排列，优先安放身高高的人，如果身高相同，先放位次低的。这样所有人的相对位次不用改变
+
+```c++
+static bool cmp(const vector<int> &a, const vector<int> &b) {
+    if(a[0] == b[0]) return a[1] < b[1]; 
+    return a[0] > b[0];
+}
+vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
+    //先按身高降序排列，优先安放身高高的人，如果身高相同，先放位次低的
+    sort(people.begin(), people.end(), cmp);
+    vector<vector<int>> res;
+    int place;
+    for(int i = 0; i < people.size(); i ++ ) {
+        place = people[i][1];
+        res.insert(res.begin() + place, people[i]);
+    }
+    return res;
+}
+```
+
