@@ -179,3 +179,48 @@ vector<vector<int>> reconstructQueue(vector<vector<int>>& people) {
 }
 ```
 
+## 665、非递减数列
+
+本题是要维持一个非递减的数列，所以遇到递减的情况时（nums[i] > nums[i + 1]），要么将前面的元素缩小，要么将后面的元素放大。
+
+但是本题唯一的易错点就在这，
+
+如果将nums[i]缩小，可能会导致其无法融入前面已经遍历过的非递减子数列；
+如果将nums[i + 1]放大，可能会导致其后续的继续出现递减；
+所以要采取贪心的策略，在遍历时，每次需要看连续的三个元素，也就是瞻前顾后，遵循以下两个原则：
+
+需要尽可能不放大nums[i + 1]，这样会让后续非递减更困难；
+如果缩小nums[i]，但不破坏前面的子序列的非递减性；
+算法步骤：
+
+遍历数组，如果遇到递减：
+还能修改：
+修改方案1：将nums[i]缩小至nums[i + 1]；
+修改方案2：将nums[i + 1]放大至nums[i]；
+不能修改了：直接返回false；
+
+```C++
+bool checkPossibility(vector<int>& nums) {
+    if(nums.size() <= 2) return true;
+    int cnt = 1; //修改次数
+    if(nums[0] > nums[1]) cnt --;
+    for(int i = 1; i < nums.size() - 1; i ++ ) {
+        if(nums[i] > nums[i+1]) {
+            if(cnt > 0) {
+                if(nums[i+1] >= nums[i-1]) nums[i] = nums[i-1];
+                else nums[i+1] = nums[i];
+                cnt --;
+            }
+            else return false;
+        }
+    }
+    return true;
+}
+```
+
+
+
+## 二、双指针
+
+
+
