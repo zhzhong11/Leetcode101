@@ -227,3 +227,20 @@ bool checkPossibility(vector<int>& nums) {
 遍历方向相同且不相交：滑动窗口
 
 遍历方向相反：搜索（数组往往是排序好的）
+
+## 88、合并两个有序数组
+
+双指针放数组末尾，如果nums1先遍历完，则nums2剩下的复制到nums1。
+
+```C++
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+    int pos = m-- + n-- - 1;
+    while(m >= 0 && n >= 0) {
+        nums1[pos--] = nums1[m] > nums2[n] ? nums1[m--] : nums2[n--];
+    }
+    while(n >= 0) {
+        nums1[pos--] = nums2[n--];
+    }
+}
+```
+
